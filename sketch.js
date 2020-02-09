@@ -1,30 +1,22 @@
-var mrect, frect;
+var fixedRect, movingRect;
 
 function setup() {
   createCanvas(1200,800);
-  frect = createSprite(600, 400, 50, 80);
-  frect.shapeColor = "purple";
-  frect.debug = true;
+  fixedRect = createSprite(400, 100, 50, 80);
+  fixedRect.shapeColor = "green";
+  fixedRect.debug = true;
+  movingRect = createSprite(400, 800,80,30);
+  movingRect.shapeColor = "green";
+  movingRect.debug = true;
 
-  mrect = createSprite(400, 200, 50, 80);
-  mrect.shapeColor = "purple";
-  mrect.debug = true;
+  movingRect.velocityY = -5;
+  fixedRect.velocityY = +5;
 }
 
 function draw() {
-  background(0,0,0); 
-  mrect.x = World.mouseX;
-  mrect.y = World.mouseY; 
-  if(mrect.x - frect.x < mrect.width / 2 + frect.width / 2 && 
-    frect.x - mrect.x < mrect.width / 2 + frect.width / 2 &&
-    mrect.y - frect.y < mrect.height / 2 + frect.height / 2 &&
-    frect.y - mrect.y < mrect.height / 2 + frect. height / 2){
-    mrect.shapeColor = "white";
-    frect.shapeColor = "white";
-  }
-  else{
-    mrect.shapeColor = "purple";
-    frect.shapeColor = "purple";
-  }
+  background(0,0,0);  
+  
+  bounceOff(movingRect, fixedRect);
+
   drawSprites();
 }
